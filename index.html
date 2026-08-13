@@ -322,39 +322,213 @@ table.transgrid td.pad{ background:var(--bg-soft); color:var(--ink-faint); font-
 .checklist input[type=checkbox]{ width:18px; height:18px; accent-color:var(--accent); }
 
 .certificate{
-  margin-top:18px; border-radius:var(--radius-lg); padding:3px;
-  background:linear-gradient(135deg, #7DBE8E, #6BAED6 45%, #E7BD57 72%, #D9869E);
+  margin-top:18px;
+  border-radius:30px;
+  padding:5px;
+  background:linear-gradient(135deg, #7DBE8E, #6BAED6 42%, #E7BD57 72%, #D9869E);
+  box-shadow:0 16px 36px -20px rgba(39,54,59,.28);
   animation:panelIn .5s ease;
 }
 .certificate-inner{
   position:relative;
+  overflow:hidden;
   background:
-    repeating-linear-gradient(135deg, rgba(42,157,143,.06) 0 2px, transparent 2px 14px),
-    var(--card);
-  border:2px dashed #74A98B;
-  border-radius:calc(var(--radius-lg) - 3px);
-  padding:36px 30px 30px;
+    radial-gradient(circle at 12% 12%, rgba(125,190,142,.12) 0 18%, transparent 19%),
+    radial-gradient(circle at 88% 14%, rgba(95,168,211,.13) 0 20%, transparent 21%),
+    radial-gradient(circle at 14% 88%, rgba(217,124,150,.10) 0 18%, transparent 19%),
+    radial-gradient(circle at 86% 86%, rgba(230,185,75,.11) 0 19%, transparent 20%),
+    linear-gradient(180deg, rgba(255,255,255,.98) 0%, rgba(252,254,253,.98) 100%);
+  border:2px solid #D7E6DF;
+  outline:2px dashed #8DBAA2;
+  outline-offset:-12px;
+  border-radius:25px;
+  padding:40px 34px 34px;
   text-align:center;
 }
-.cert-seal{
-  position:absolute; top:18px; right:20px;
-  width:64px; height:64px; border-radius:50%;
-  background:#4F9564; color:#fff; border:3px solid #fff;
-  display:flex; align-items:center; justify-content:center;
-  font-family:'JetBrains Mono',monospace; font-weight:700; font-size:.76rem; letter-spacing:.04em;
-  box-shadow:0 4px 10px rgba(79,149,100,.24); transform:rotate(9deg);
+.certificate-inner::before,
+.certificate-inner::after{
+  content:"";
+  position:absolute;
+  pointer-events:none;
+  opacity:.65;
 }
-.cert-eyebrow{ font-family:'JetBrains Mono',monospace; letter-spacing:.2em; font-size:.7rem; color:var(--amber-deep); font-weight:700; margin:0 0 8px; }
-.cert-title{ font-size:1.55rem; margin:0 0 18px; color:var(--ink); }
-.cert-body{ color:var(--ink-soft); font-size:.96rem; line-height:1.85; margin:0 0 20px; }
-.cert-body b{ color:var(--ink); }
-.cert-meta{ display:inline-flex; flex-direction:column; gap:3px; padding:10px 26px; border-top:1px solid var(--line-strong); border-bottom:1px solid var(--line-strong); }
-.cert-meta span{ font-size:.7rem; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-faint); }
-.cert-meta b{ font-family:'JetBrains Mono',monospace; font-size:.95rem; color:var(--amber-deep); }
+.certificate-inner::before{
+  top:18px;
+  left:22px;
+  width:74px;
+  height:74px;
+  border-top:3px solid #7DBE8E;
+  border-left:3px solid #7DBE8E;
+  border-radius:18px 0 0 0;
+}
+.certificate-inner::after{
+  right:22px;
+  bottom:18px;
+  width:74px;
+  height:74px;
+  border-right:3px solid #6BAED6;
+  border-bottom:3px solid #6BAED6;
+  border-radius:0 0 18px 0;
+}
+.cert-ribbon{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  margin:0 auto 14px;
+  padding:8px 18px;
+  border-radius:999px;
+  background:linear-gradient(90deg, #FBE8EE, #FFF4CF, #E7F3FA);
+  border:1px solid #E3E7DF;
+  box-shadow:0 8px 18px -14px rgba(39,54,59,.22);
+  font-family:'JetBrains Mono',monospace;
+  font-size:.74rem;
+  letter-spacing:.16em;
+  font-weight:700;
+  color:#536A72;
+  text-transform:uppercase;
+}
+.cert-ribbon::before,
+.cert-ribbon::after{
+  content:"✦";
+  color:#B8881E;
+  font-size:.9rem;
+}
+.cert-seal{
+  position:absolute;
+  top:20px;
+  right:22px;
+  width:88px;
+  height:88px;
+  border-radius:50%;
+  background:
+    radial-gradient(circle at 30% 30%, rgba(255,255,255,.36), transparent 42%),
+    linear-gradient(135deg, #4F9564, #6BAED6);
+  color:#fff;
+  border:4px solid rgba(255,255,255,.96);
+  outline:2px dashed rgba(255,255,255,.58);
+  outline-offset:-8px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  font-family:'JetBrains Mono',monospace;
+  font-weight:800;
+  font-size:.78rem;
+  letter-spacing:.06em;
+  line-height:1.1;
+  box-shadow:0 12px 20px -12px rgba(61,130,171,.45);
+  transform:rotate(10deg);
+}
+.cert-seal small{
+  font-size:.6rem;
+  opacity:.95;
+  letter-spacing:.18em;
+}
+.cert-eyebrow{
+  font-family:'JetBrains Mono',monospace;
+  letter-spacing:.24em;
+  font-size:.72rem;
+  color:#6A8F84;
+  font-weight:800;
+  margin:0 0 10px;
+}
+.cert-title{
+  font-size:1.9rem;
+  line-height:1.2;
+  margin:0 0 8px;
+  color:var(--ink);
+}
+.cert-subtitle{
+  margin:0 0 18px;
+  color:var(--ink-soft);
+  font-size:.94rem;
+}
+.cert-body{
+  color:var(--ink-soft);
+  font-size:1rem;
+  line-height:1.95;
+  margin:0 0 22px;
+}
+.cert-body b{
+  color:var(--ink);
+  padding:2px 8px;
+  border-radius:999px;
+  background:#F7FBF9;
+}
+.cert-highlight{
+  display:inline-flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:8px;
+  margin:0 auto 20px;
+}
+.cert-chip{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  padding:7px 12px;
+  border-radius:999px;
+  background:#F8FBFA;
+  border:1px solid #E1E9E6;
+  font-size:.8rem;
+  color:#597078;
+  font-weight:700;
+}
+.cert-meta{
+  display:inline-flex;
+  flex-direction:column;
+  gap:4px;
+  padding:12px 28px;
+  border-radius:16px;
+  background:linear-gradient(180deg, #F8FBFA, #FFFFFF);
+  border:1px solid #DDE8E4;
+  box-shadow:0 10px 20px -18px rgba(39,54,59,.28);
+}
+.cert-meta span{
+  font-size:.7rem;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--ink-faint);
+}
+.cert-meta b{
+  font-family:'JetBrains Mono',monospace;
+  font-size:.95rem;
+  color:#4F9564;
+}
+.cert-signature-wrap{
+  margin-top:26px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:18px;
+}
+.cert-signature{
+  padding-top:14px;
+  border-top:1.5px solid #D9E2E0;
+}
+.cert-signature .label{
+  display:block;
+  font-size:.72rem;
+  color:var(--ink-faint);
+  letter-spacing:.1em;
+  text-transform:uppercase;
+}
+.cert-signature .value{
+  display:block;
+  margin-top:6px;
+  font-weight:800;
+  color:#4A5F67;
+}
 .cert-footer{ margin-top:18px; }
-.cert-brand{ font-size:.76rem; color:var(--ink-faint); letter-spacing:.05em; }
+.cert-brand{
+  font-size:.78rem;
+  color:var(--ink-faint);
+  letter-spacing:.05em;
+}
 @media (max-width:480px){
   .cert-seal{ position:static; margin:0 auto 12px; transform:none; }
+  .cert-signature-wrap{ grid-template-columns:1fr; gap:12px; }
+  .certificate-inner{ padding:28px 20px 24px; }
+  .cert-title{ font-size:1.55rem; }
 }
 
 .panel-nav{
@@ -821,19 +995,36 @@ table.transgrid td.pad{ background:var(--bg-soft); color:var(--ink-faint); font-
 
       <div class="certificate" id="certificate" style="display:none;">
         <div class="certificate-inner">
-          <div class="cert-seal">PASS</div>
+          <div class="cert-seal"><small>SMART</small>PASS</div>
+          <div class="cert-ribbon">Achievement Badge</div>
           <p class="cert-eyebrow">CERTIFICATE OF COMPLETION</p>
           <h4 class="cert-title">암호화 실습 인증서</h4>
+          <p class="cert-subtitle">데이터 암호화 학습 활동을 성실하게 마친 학생에게 수여합니다.</p>
+          <div class="cert-highlight">
+            <span class="cert-chip">🔐 치환형 암호</span>
+            <span class="cert-chip">🧩 전치형 암호</span>
+            <span class="cert-chip">✨ 결합 활동 완료</span>
+          </div>
           <p class="cert-body">
             학번 <b id="cert-out-sid">-</b> · 이름 <b id="cert-out-name">-</b> 학생은<br>
-            <b>치환형 암호</b>와 <b>전치형 암호</b> 실습, 그리고 두 기법을 결합하는 활동까지<br>
+            <b>치환형 암호</b>와 <b>전치형 암호</b> 실습, 그리고 <b>결합 암호화 활동</b>까지<br>
             모두 성실히 수행하였음을 인증합니다.
           </p>
           <div class="cert-meta">
-            <span>제출 일시</span>
+            <span>Completed At</span>
             <b id="cert-out-datetime">-</b>
           </div>
-          <div class="cert-footer"><span class="cert-brand">정보 · 데이터 암호화 학습도구</span></div>
+          <div class="cert-signature-wrap">
+            <div class="cert-signature">
+              <span class="label">Course</span>
+              <span class="value">정보 · 데이터 암호화 학습도구</span>
+            </div>
+            <div class="cert-signature">
+              <span class="label">Issued By</span>
+              <span class="value">Digital Data Lab</span>
+            </div>
+          </div>
+          <div class="cert-footer"><span class="cert-brand">배움의 과정을 스스로 확인하고 기록하는 실습 인증서</span></div>
         </div>
       </div>
       <div class="certificate-actions" id="cert-actions" style="display:none;">
