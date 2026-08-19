@@ -852,6 +852,78 @@ table.transgrid.quiz-transgrid .blank-input{
   box-shadow:0 4px 12px -10px rgba(39,54,59,.22);
 }
 
+
+.cert-activity{
+  margin:22px auto 20px;
+  max-width:760px;
+  text-align:left;
+}
+.cert-activity-title{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  margin-bottom:12px;
+  font-size:.9rem;
+  font-weight:800;
+  color:#4A5F67;
+}
+.cert-activity-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+.cert-activity-card{
+  padding:12px 14px;
+  border:1px solid #DDE8E4;
+  border-radius:14px;
+  background:rgba(255,255,255,.88);
+  box-shadow:0 6px 14px -12px rgba(39,54,59,.18);
+}
+.cert-activity-card.full{ grid-column:1 / -1; }
+.cert-activity-label{
+  display:block;
+  margin-bottom:5px;
+  font-size:.7rem;
+  font-weight:800;
+  letter-spacing:.08em;
+  color:#809096;
+  text-transform:uppercase;
+}
+.cert-activity-value{
+  display:block;
+  font-family:'JetBrains Mono',monospace;
+  font-size:.8rem;
+  line-height:1.55;
+  color:#3E555D;
+  word-break:break-word;
+}
+@media(max-width:620px){
+  .cert-activity-grid{ grid-template-columns:1fr; }
+  .cert-activity-card.full{ grid-column:auto; }
+}
+
+
+.cert-activity-card{position:relative;}
+.cert-activity-head{display:flex;align-items:center;gap:9px;margin-bottom:7px;}
+.cert-check{flex:0 0 auto;width:20px;height:20px;border-radius:6px;border:2px solid #B9C8C5;background:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:.82rem;font-weight:900;color:#fff;}
+.cert-check.done{border-color:#63A978;background:#63A978;}
+.cert-check.done::after{content:"✓";}
+.cert-activity-title-wrap{display:flex;flex-direction:column;gap:1px;min-width:0;}
+.cert-activity-title-ko{font-size:.82rem;font-weight:850;color:#40565E;line-height:1.25;}
+.cert-activity-title-en{font-family:'JetBrains Mono',monospace;font-size:.64rem;font-weight:700;letter-spacing:.06em;color:#8B9A9F;text-transform:uppercase;line-height:1.25;}
+.cert-activity-card.not-done{background:#FAFBFB;border-style:dashed;}
+.cert-activity-card.not-done .cert-activity-value{color:#9AA8AC;}
+
+
+#tr-quiz1-prompt{
+  background:linear-gradient(135deg,#EEF7F2,#EEF5FB);
+  border:1px solid #CFE0DC;
+  font-size:.92rem;
+}
+#tr-quiz1-prompt .mono{ color:#315E70; font-weight:800; }
+.transgrid td.pad{ color:#61747A; font-weight:800; background:#F4F7F6; }
+
 </style>
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 </head>
@@ -1027,13 +1099,13 @@ table.transgrid.quiz-transgrid .blank-input{
     <div class="module-head">
       <span class="step-num">Step 2</span>
       <h2>전치형 암호 <small>표에 채워 넣고 세로로 읽어 순서를 뒤섞기</small></h2>
-      <p class="lead">전치형 암호는 문자를 재배열하거나 위치를 바꾸어 순서를 뒤섞는 방식이에요. 문자 자체는 바뀌지 않지만, 순서가 달라져서 원래 의미를 알아보기 어려워집니다.</p>
+      <p class="lead">전치형 암호는 문자를 재배열하거나 위치를 바꾸어 순서를 뒤섞는 방식이에요. 문자 자체는 바뀌지 않지만, 순서가 달라져서 원래 의미를 알아보기 어려워집니다. <b>마지막 행의 남는 칸은 공백으로 채우고, 그 공백도 암호문의 한 문자로 유지</b>합니다.</p>
     </div>
 
     <div class="card concept-card">
       <h3><span class="dot"></span>개념 정리</h3>
-      <p><b>전치형 암호 기법</b>은 비밀키(표의 가로 칸 수)만큼 열을 가진 표를 만들고, 메시지를 <b>가로 방향</b>으로 한 글자씩 채운 뒤, <b>세로 방향</b>으로 읽어 암호문을 만드는 방식이에요.</p>
-      <p>복호화할 때는 암호문의 길이와 비밀키로 표의 크기를 다시 구성하고, 세로로 채운 뒤 가로로 읽으면 원래 메시지가 복원돼요.</p>
+      <p><b>전치형 암호 기법</b>은 비밀키(표의 가로 칸 수)만큼 열을 가진 표를 만들고, 메시지를 <b>가로 방향</b>으로 한 글자씩 채운 뒤, 마지막에 남는 칸은 <b>공백으로 채워 표를 완성</b>하고, <b>세로 방향</b>으로 읽어 암호문을 만드는 방식이에요.</p>
+      <p>복호화할 때는 <b>암호문 길이 ÷ 비밀키(열 수) = 행 수</b>로 표의 크기를 다시 구성하고, 암호문을 <b>열별로 위에서 아래로 채운 뒤 가로로 읽으면</b> 원래 메시지가 복원돼요. 마지막 패딩 공백은 복원 후 제거합니다.</p>
       <div class="aside">💡 공유하고 있는 비밀키가 정확히 같아야 올바르게 복호화할 수 있어요. 키가 다르면 전혀 다른 문장이 나와요!</div>
     </div>
 
@@ -1054,14 +1126,14 @@ table.transgrid.quiz-transgrid .blank-input{
         <button class="btn btn-primary" id="tr-run">암호화하기</button>
       </div>
 
-      <p class="readnote">① 비밀키만큼 열을 만들고, 평문을 <b>가로 방향</b>으로 한 글자씩 채워 넣기</p>
+      <p class="readnote">① 비밀키만큼 열을 만들고, 평문을 <b>가로 방향</b>으로 한 글자씩 채워 넣기 · 마지막 남는 칸은 <b>공백(␣)</b>으로 채우기</p>
       <div class="grid-scroll"><table class="transgrid" id="tr-writeGrid"></table></div>
 
       <p class="readnote">② 열별 색을 따라 <b>1열 → 2열 → 3열…</b> 순서로 위에서 아래로 읽어 암호문 만들기</p>
       <div class="grid-scroll"><table class="transgrid" id="tr-readGrid"></table></div>
 
       <div class="output-box">
-        <div><span class="lbl">암호문</span><span class="val mono" id="tr-output">—</span></div>
+        <div><span class="lbl">암호문 <small style="font-weight:500;color:var(--ink-faint);">(␣ = 공백)</small></span><span class="val mono" id="tr-output">—</span></div>
         <button class="btn btn-sm" id="tr-copy">복사</button>
       </div>
 
@@ -1076,26 +1148,26 @@ table.transgrid.quiz-transgrid .blank-input{
         <div class="field">
           <label for="tr-dec-text">암호문 입력 (영문+공백)</label>
           <input type="text" id="tr-dec-text" value="STSE ACMGREEES" maxlength="24" aria-label="전치형 복호화 암호문 입력" aria-describedby="tr-dec-text-guide" autocomplete="off">
-          <p class="field-guide" id="tr-dec-text-guide">영문 A–Z와 공백만 사용할 수 있어요. 공백도 문자 한 칸으로 복원됩니다.</p>
+          <p class="field-guide" id="tr-dec-text-guide">영문 A–Z와 공백을 사용할 수 있어요. 복사한 암호문의 마지막 패딩 공백도 그대로 유지됩니다.</p>
         </div>
         <div class="field">
-          <label for="tr-dec-shared-key">공유한 비밀키</label>
+          <label for="tr-dec-shared-key">공유한 비밀키 (열 수)</label>
           <input type="number" id="tr-dec-shared-key" value="5" min="2" max="9" aria-label="전치형 복호화 공유 비밀키 입력">
         </div>
-        <button class="btn" id="tr-dec-calc" aria-label="암호문 길이와 비밀키로 표의 칸 수 계산">표의 칸 수 계산</button>
+        <button class="btn" id="tr-dec-calc" aria-label="암호문 길이와 비밀키로 표의 칸 수 계산">행 수 계산</button>
         <div class="field">
-          <label for="tr-dec-key">계산된 표의 칸 수</label>
+          <label for="tr-dec-key">계산된 행 수</label>
           <input type="number" id="tr-dec-key" value="3" min="1" max="24" aria-label="계산된 전치형 복호화 표의 칸 수" readonly>
         </div>
         <button class="btn btn-primary" id="tr-dec-run" aria-label="전치형 암호문 복호화 실행">복호화하기</button>
       </div>
       <div class="aside" id="tr-dec-calcbox" style="margin-top:10px;">
-        📐 <b>복호화 표 계산:</b> 암호문 길이 ÷ 공유 비밀키를 계산하고, 소수점이 나오면 올림하여 <b>표의 칸 수</b>를 구합니다.
-        <div id="tr-dec-calcresult" class="mono" style="margin-top:6px;font-weight:700;color:var(--teal-deep);">예: 14 ÷ 5 = 2.8 → 올림 → 3칸</div>
+        📐 <b>복호화 표 계산:</b> 패딩 공백까지 포함한 <b>암호문 길이 ÷ 공유 비밀키(열 수)</b>를 계산하여 <b>행 수</b>를 구합니다.
+        <div id="tr-dec-calcresult" class="mono" style="margin-top:6px;font-weight:700;color:var(--teal-deep);">예: 암호문 18글자 ÷ 비밀키 6열 = 3행</div>
       </div>
-      <p class="readnote">① 암호문을 계산된 표의 칸 수에 맞춰 가로로 배치한 뒤, 세로 방향으로 읽어 복원 과정을 확인합니다.</p>
+      <p class="readnote">① 암호문을 1열부터 차례대로 <b>세로 방향</b>으로 채워 원래 표를 복원합니다.</p>
       <div class="grid-scroll"><table class="transgrid" id="tr-dec-grid"></table></div>
-      <p class="readnote">② 표를 가로 방향으로 읽기</p>
+      <p class="readnote">② 복원된 표를 가로 방향으로 읽고, 마지막 패딩 공백은 제거하기</p>
       <div class="output-box">
         <div><span class="lbl">복원된 평문</span><span class="val mono" id="tr-dec-output">—</span></div>
       </div>
@@ -1103,24 +1175,27 @@ table.transgrid.quiz-transgrid .blank-input{
 
     <div class="card quiz-card" id="tr-quiz1">
       <h3><span class="dot"></span>🔍 미니 퀴즈 · 표의 빈칸을 채워보세요</h3>
-      <p style="color:var(--ink-soft);font-size:.9rem;margin-top:-4px;">바로 위 실습과 같은 방식으로 평문을 왼쪽에서 오른쪽으로 채웁니다. 비어 있는 칸에 알맞은 문자를 입력해 보세요.</p>
+      <p style="color:var(--ink-soft);font-size:.9rem;margin-top:-4px;">아래에 제시된 <b>평문</b>과 <b>비밀키</b>를 보고 표를 직접 완성하세요. 마지막 행에 남는 칸은 공백(␣)으로 채웁니다.</p>
+      <div class="aside" id="tr-quiz1-prompt" style="margin:12px 0 14px;">
+        📝 <b>이번 문제</b> · 평문: <span class="mono" id="tr-quiz1-plain">-</span> · 비밀키: <b id="tr-quiz1-key">-</b>열
+      </div>
       <div class="grid-scroll"><table class="transgrid quiz-transgrid" id="tr-quiz1-grid" aria-label="전치형 암호 미니 퀴즈 표"></table></div>
       <div class="quiz-actions">
         <button class="btn btn-primary btn-sm" id="tr-quiz1-check" aria-label="전치형 표 빈칸 퀴즈 채점">채점하기</button>
         <button class="btn btn-sm hint-btn" data-hint="tr-quiz1-hint" aria-controls="tr-quiz1-hint" aria-expanded="false">💡 힌트 보기</button>
         <button class="btn btn-sm" id="tr-quiz1-regen">새 문제</button><span class="field-guide" style="align-self:center;">정답은 자동 입력되지 않습니다. 빈칸을 직접 채워 보세요.</span>
       </div>
-      <div class="hint-box" id="tr-quiz1-hint">💡 <b>전치형 표 작성 팁:</b> 비밀키가 열의 개수입니다. 평문을 왼쪽→오른쪽으로 한 글자씩 넣고, 한 행이 다 차면 다음 행으로 내려갑니다.</div>
+      <div class="hint-box" id="tr-quiz1-hint">💡 <b>전치형 표 작성 팁:</b> 위에 제시된 평문을 첫 글자부터 왼쪽→오른쪽으로 넣고, 한 행이 다 차면 다음 행으로 내려갑니다. 마지막 빈 칸은 공백(␣)입니다.</div>
       <div class="feedback" id="tr-quiz1-feedback" role="status" aria-live="polite"></div>
     </div>
 
     <div class="card quiz-card" id="tr-quiz2">
       <h3><span class="dot"></span>✏️ 암호문 직접 만들어보기</h3>
-      <p style="color:var(--ink-soft);font-size:.9rem;margin-top:-4px;">위 표를 세로 방향으로 읽어서, 완성된 암호문을 아래에 입력해 보세요.</p>
+      <p style="color:var(--ink-soft);font-size:.9rem;margin-top:-4px;">위에서 완성한 표를 1열부터 세로 방향으로 읽어 암호문을 입력하세요. <b>공백은 ␣ 기호로 입력해도 됩니다.</b></p>
       <div class="field" style="max-width:320px;">
         <label for="tr-quiz2-answer">암호문 입력</label>
         <input type="text" id="tr-quiz2-answer" placeholder="예: STSE ACMGREEES" aria-label="전치형 암호문 정답 입력" aria-describedby="tr-quiz2-answer-guide" autocomplete="off">
-        <p class="field-guide" id="tr-quiz2-answer-guide">영문 A–Z와 공백만 입력하세요. 그 외 문자는 자동 제거됩니다.</p>
+        <p class="field-guide" id="tr-quiz2-answer-guide">영문 A–Z, 공백, ␣ 기호를 사용할 수 있어요. ␣는 실제 공백으로 채점됩니다.</p>
       </div>
       <div class="quiz-actions">
         <button class="btn btn-primary btn-sm" id="tr-quiz2-check" aria-label="전치형 암호문 퀴즈 확인">확인</button>
@@ -1220,7 +1295,7 @@ table.transgrid.quiz-transgrid .blank-input{
         <div class="field" style="max-width:320px;">
           <label for="cb-output-answer">최종 암호문</label>
           <input type="text" id="cb-output-answer" placeholder="여기에 입력" aria-label="결합 활동 최종 암호문 입력" aria-describedby="cb-output-answer-guide" autocomplete="off">
-          <p class="field-guide" id="cb-output-answer-guide">영문 A–Z만 입력하세요. 그 외 문자는 자동 제거됩니다.</p>
+          <p class="field-guide" id="cb-output-answer-guide">영문 A–Z와 공백을 입력하세요. 패딩 공백은 ␣ 기호로 입력해도 됩니다.</p>
         </div>
         <div class="quiz-actions">
           <button class="btn btn-primary btn-sm" id="cb-output-check">확인</button>
@@ -1316,7 +1391,7 @@ table.transgrid.quiz-transgrid .blank-input{
 
     <div class="card cert-card" style="margin-top:22px;">
       <h3><span class="dot"></span>🎓 실습 인증서 발급받기</h3>
-      <p style="color:var(--ink-soft);font-size:.9rem;margin-top:-4px;">모든 단계를 마쳤다면 학번과 이름을 입력하고 인증서를 발급받아 보세요.</p>
+      <p style="color:var(--ink-soft);font-size:.9rem;margin-top:-4px;">모든 단계를 마쳤다면 학번과 이름을 입력하고 인증서를 발급받아 보세요. 인증서에는 실제로 수행한 활동만 체크되어 기록되며, 수행하지 않은 활동은 「활동 기록 없음」으로 표시됩니다.</p>
       <div class="controls" style="margin-bottom:4px;">
         <div class="field">
           <label for="cert-sid">학번</label>
@@ -1351,6 +1426,18 @@ table.transgrid.quiz-transgrid .blank-input{
             <span>Completed At</span>
             <b id="cert-out-datetime">-</b>
           </div>
+
+          <div class="cert-activity">
+            <div class="cert-activity-title">📘 나의 암호화·복호화 활동 기록</div>
+            <div class="cert-activity-grid">
+              <div class="cert-activity-card" id="cert-card-caesar-enc"><div class="cert-activity-head"><span class="cert-check" id="cert-check-caesar-enc" aria-hidden="true"></span><span class="cert-activity-title-wrap"><span class="cert-activity-title-ko">시저 암호화</span><span class="cert-activity-title-en">Caesar Encryption</span></span></div><span class="cert-activity-value" id="cert-log-caesar-enc">활동 기록 없음</span></div>
+              <div class="cert-activity-card" id="cert-card-caesar-dec"><div class="cert-activity-head"><span class="cert-check" id="cert-check-caesar-dec" aria-hidden="true"></span><span class="cert-activity-title-wrap"><span class="cert-activity-title-ko">시저 복호화</span><span class="cert-activity-title-en">Caesar Decryption</span></span></div><span class="cert-activity-value" id="cert-log-caesar-dec">활동 기록 없음</span></div>
+              <div class="cert-activity-card" id="cert-card-trans-enc"><div class="cert-activity-head"><span class="cert-check" id="cert-check-trans-enc" aria-hidden="true"></span><span class="cert-activity-title-wrap"><span class="cert-activity-title-ko">전치형 암호화</span><span class="cert-activity-title-en">Transposition Encryption</span></span></div><span class="cert-activity-value" id="cert-log-trans-enc">활동 기록 없음</span></div>
+              <div class="cert-activity-card" id="cert-card-trans-dec"><div class="cert-activity-head"><span class="cert-check" id="cert-check-trans-dec" aria-hidden="true"></span><span class="cert-activity-title-wrap"><span class="cert-activity-title-ko">전치형 복호화</span><span class="cert-activity-title-en">Transposition Decryption</span></span></div><span class="cert-activity-value" id="cert-log-trans-dec">활동 기록 없음</span></div>
+              <div class="cert-activity-card" id="cert-card-combo-enc"><div class="cert-activity-head"><span class="cert-check" id="cert-check-combo-enc" aria-hidden="true"></span><span class="cert-activity-title-wrap"><span class="cert-activity-title-ko">결합 암호화</span><span class="cert-activity-title-en">Combined Encryption</span></span></div><span class="cert-activity-value" id="cert-log-combo-enc">활동 기록 없음</span></div>
+              <div class="cert-activity-card" id="cert-card-combo-dec"><div class="cert-activity-head"><span class="cert-check" id="cert-check-combo-dec" aria-hidden="true"></span><span class="cert-activity-title-wrap"><span class="cert-activity-title-ko">결합 복호화</span><span class="cert-activity-title-en">Combined Decryption</span></span></div><span class="cert-activity-value" id="cert-log-combo-dec">활동 기록 없음</span></div>
+            </div>
+          </div></div>
           <div class="cert-signature-wrap">
             <div class="cert-signature">
               <span class="label">Course</span>
@@ -1387,7 +1474,14 @@ table.transgrid.quiz-transgrid .blank-input{
 
 <script>
 /* ===================== 공통 유틸 ===================== */
+
+/* ===================== 학생 활동 여부 추적 ===================== */
+const activityDone = {caesarEnc:false,caesarDec:false,transEnc:false,transDec:false,comboEnc:false,comboDec:false};
+function markActivity(name){ if(Object.prototype.hasOwnProperty.call(activityDone,name)) activityDone[name]=true; }
+
 function sanitize(str){ return (str||'').toUpperCase().replace(/[^A-Z ]/g,'').replace(/\s+/g,' ').trim(); }
+function sanitizeTransCipher(str){ return (str||'').toUpperCase().replace(/␣/g,' ').replace(/[^A-Z ]/g,''); }
+function visibleSpaces(str){ return (str||'').replace(/ /g,'␣'); }
 function letterOnly(str){ return (str||'').toUpperCase().replace(/[^A-Z]/g,''); }
 function shiftChar(ch,key){
   if(!/[A-Z]/.test(ch)) return ch;
@@ -1406,25 +1500,37 @@ function transEncryptGrid(msg, cols){
   let idx=0;
   for(let r=0;r<rows;r++){
     const row=[];
-    for(let c=0;c<cols;c++){ row.push(idx<msg.length? msg[idx++] : null); }
+    for(let c=0;c<cols;c++){
+      // 마지막 남는 칸도 실제 공백 문자로 채워 직사각형 표를 완성한다.
+      row.push(idx<msg.length ? msg[idx++] : ' ');
+    }
     grid.push(row);
   }
   let cipher='';
-  for(let c=0;c<cols;c++){ for(let r=0;r<rows;r++){ if(grid[r][c]!==null) cipher+=grid[r][c]; } }
+  for(let c=0;c<cols;c++){
+    for(let r=0;r<rows;r++) cipher+=grid[r][c];
+  }
   return {grid, cipher, rows, cols};
 }
 function transDecrypt(cipher, cols){
-  const n = cipher.length;
-  const rows = Math.ceil(n/cols);
-  const remainder = n - (rows-1)*cols;
-  const grid = Array.from({length:rows},()=>Array(cols).fill(null));
+  const clean=sanitizeTransCipher(cipher);
+  const n=clean.length;
+  if(!n || !cols) return {grid:[], msg:'', rows:0, cols};
+  const rows=Math.ceil(n/cols);
+  const total=rows*cols;
+  const padded=clean.padEnd(total,' ');
+  const grid=Array.from({length:rows},()=>Array(cols).fill(' '));
   let ci=0;
+  // 암호화 때 세로로 읽었으므로 복호화 때는 열별로 다시 채운다.
   for(let c=0;c<cols;c++){
-    const colLen = c<remainder ? rows : rows-1;
-    for(let r=0;r<colLen;r++){ grid[r][c]=cipher[ci++]; }
+    for(let r=0;r<rows;r++) grid[r][c]=padded[ci++];
   }
   let msg='';
-  for(let r=0;r<rows;r++){ for(let c=0;c<cols;c++){ if(grid[r][c]!==null) msg+=grid[r][c]; } }
+  for(let r=0;r<rows;r++){
+    for(let c=0;c<cols;c++) msg+=grid[r][c];
+  }
+  // 암호화 때 추가한 마지막 패딩 공백만 제거한다.
+  msg=msg.replace(/ +$/,'');
   return {grid, msg, rows, cols};
 }
 
@@ -1585,49 +1691,40 @@ function runCaesarDecryptLab(){
   document.getElementById('cs-dec-output').textContent=out||'—';
 }
 function calculateTransDecryptCols(){
-  const cipher=sanitize(document.getElementById('tr-dec-text').value);
+  const cipher=sanitizeTransCipher(document.getElementById('tr-dec-text').value);
   let shared=parseInt(document.getElementById('tr-dec-shared-key').value,10);
   if(isNaN(shared)||shared<2) shared=2;
   if(shared>9) shared=9;
   document.getElementById('tr-dec-shared-key').value=shared;
 
   const n=cipher.length;
-  const cols=n>0 ? Math.ceil(n/shared) : 1;
-  document.getElementById('tr-dec-key').value=cols;
+  const rows=n>0 ? Math.ceil(n/shared) : 1;
+  document.getElementById('tr-dec-key').value=rows;
 
-  const raw=n>0 ? (n/shared) : 0;
   const result=document.getElementById('tr-dec-calcresult');
   if(result){
-    result.textContent = n>0
-      ? `${n} ÷ ${shared} = ${raw.toFixed(raw%1===0?0:2)} → ${raw%1===0?'그대로':'올림'} → ${cols}칸`
-      : '암호문을 입력하면 계산 결과가 표시됩니다.';
+    if(!n){
+      result.textContent='암호문을 입력하면 계산 결과가 표시됩니다.';
+    }else if(n%shared===0){
+      result.textContent=`${n}글자 ÷ ${shared}열 = ${rows}행`;
+    }else{
+      result.textContent=`${n}글자 ÷ ${shared}열 → 나누어떨어지지 않습니다. 암호문 끝의 패딩 공백이 빠졌는지 확인하세요.`;
+    }
   }
-  return {cipher, shared, cols};
+  return {cipher, shared, rows};
 }
 
 function runTransDecryptLab(){
-  const {cipher, shared, cols}=calculateTransDecryptCols();
+  const {cipher, shared}=calculateTransDecryptCols();
   document.getElementById('tr-dec-text').value=cipher;
-
-  // 교과서 흐름: 계산된 표의 칸 수(cols)를 가로 칸으로 보고,
-  // 암호문을 가로로 배치한 뒤 세로로 읽어 평문을 복원.
-  const rows=shared;
-  const grid=Array.from({length:rows},()=>Array(cols).fill(null));
-  let idx=0;
-  for(let r=0;r<rows;r++){
-    for(let c=0;c<cols;c++){
-      if(idx<cipher.length) grid[r][c]=cipher[idx++];
-    }
+  if(!cipher){
+    document.getElementById('tr-dec-grid').innerHTML='';
+    document.getElementById('tr-dec-output').textContent='—';
+    return;
   }
-  renderDecryptGrid(document.getElementById('tr-dec-grid'), grid, cols);
-
-  let msg='';
-  for(let c=0;c<cols;c++){
-    for(let r=0;r<rows;r++){
-      if(grid[r][c]!==null) msg+=grid[r][c];
-    }
-  }
-  document.getElementById('tr-dec-output').textContent=msg||'—';
+  const result=transDecrypt(cipher,shared);
+  renderDecryptGrid(document.getElementById('tr-dec-grid'), result.grid, shared);
+  document.getElementById('tr-dec-output').textContent=result.msg||'—';
 }
 function showTeacherToast(message){
   const toast=document.getElementById('teacher-toast');
@@ -1733,15 +1830,22 @@ document.addEventListener('DOMContentLoaded', ()=>{
   updateCaesarPracticeMaps();
   updateComboCaesarMaps();
 
+  ['tr-quiz2-answer','tr-dec-text','cb-output-answer'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(!el) return;
+    el.addEventListener('input',()=>{
+      const before=el.value;
+      const after=before.toUpperCase().replace(/[^A-Z ␣]/g,'');
+      if(before!==after) el.value=after;
+    });
+  });
+
   [
     ['cs-text','cs-text-guide',true],
     ['cs-quiz2-answer','cs-quiz2-answer-guide',true],
     ['cs-dec-text','cs-dec-text-guide',true],
     ['tr-text','tr-text-guide',true],
-    ['tr-quiz2-answer','tr-quiz2-answer-guide',true],
-    ['tr-dec-text','tr-dec-text-guide',true],
     ['cb-text','cb-text-guide',false],
-    ['cb-output-answer','cb-output-answer-guide',false],
   ].forEach(args=>attachEnglishGuide(...args));
 
   runTransDecryptLab();
@@ -1893,12 +1997,14 @@ function runCaesarLab(){
   csState.cipher = cipher;
   updateCaesarPracticeMaps();
 }
-document.getElementById('cs-run').addEventListener('click', runCaesarLab);
+document.getElementById('cs-run').addEventListener('click', ()=>{ markActivity('caesarEnc'); runCaesarLab(); });
 document.getElementById('cs-randWord').addEventListener('click', ()=>{
+  markActivity('caesarEnc');
   document.getElementById('cs-text').value = pick(CAESAR_WORDS);
   runCaesarLab();
 });
 document.getElementById('cs-randKey').addEventListener('click', ()=>{
+  markActivity('caesarEnc');
   document.getElementById('cs-key').value = randInt(1,25);
   runCaesarLab();
 });
@@ -1984,8 +2090,8 @@ document.getElementById('cs-quiz2-check').addEventListener('click', ()=>{
 document.getElementById('cs-quiz2-new').addEventListener('click', newCaesarQuiz2);
 
 
-document.getElementById('cs-dec-run').addEventListener('click', runCaesarDecryptLab);
-document.getElementById('cs-dec-text').addEventListener('keydown', e=>{ if(e.key==='Enter') runCaesarDecryptLab(); });
+document.getElementById('cs-dec-run').addEventListener('click', ()=>{ markActivity('caesarDec'); runCaesarDecryptLab(); });
+document.getElementById('cs-dec-text').addEventListener('keydown', e=>{ if(e.key==='Enter'){ markActivity('caesarDec'); runCaesarDecryptLab(); } });
 
 /* ===================== SECTION 2: 전치형 ===================== */
 const TRANS_WORDS = ['SECRET MESSAGE','DATA SCIENCE','HIDDEN CODE','COMPUTER SCIENCE','DIGITAL SAFETY','INFORMATION AGE'];
@@ -2005,11 +2111,10 @@ function renderWriteGrid(containerTable, grid, cols, blankSet){
     row.forEach((ch,c)=>{
       const td=document.createElement('td');
       const key = r+'-'+c;
-      if(ch===null){ td.classList.add('pad'); td.textContent='·'; }
-      else if(blankSet && blankSet.has(key)){
+      if(blankSet && blankSet.has(key)){
         const id='trw-'+r+'-'+c;
         td.innerHTML = `<input class="blank-input" id="${id}" maxlength="1" aria-label="표 빈칸 ${r+1}행 ${c+1}열">`;
-      } else { td.textContent = ch===' '?'␣':ch; }
+      } else { td.textContent = ch===' '?'␣':ch; if(ch===' ') td.classList.add('pad'); }
       tr.appendChild(td);
     });
     containerTable.appendChild(tr);
@@ -2038,11 +2143,14 @@ function renderReadGrid(containerTable, grid, cols){
     const tr=document.createElement('tr');
     row.forEach((ch,c)=>{
       const td=document.createElement('td');
-      if(ch===null){
+      if(ch===' '){
         td.classList.add('pad');
-        td.textContent='·';
+        td.textContent='␣';
+        td.style.background=gradients[c%gradients.length];
+        td.style.color='#fff';
+        td.style.fontWeight='800';
       }else{
-        td.textContent = ch===' '?'␣':ch;
+        td.textContent = ch;
         td.style.background=gradients[c%gradients.length];
         td.style.color='#fff';
         td.style.fontWeight='800';
@@ -2064,19 +2172,21 @@ function runTransLab(){
 
   renderWriteGrid(document.getElementById('tr-writeGrid'), grid, cols, null);
   renderReadGrid(document.getElementById('tr-readGrid'), grid, cols);
-  document.getElementById('tr-output').textContent = cipher;
+  document.getElementById('tr-output').textContent = visibleSpaces(cipher);
 
   const back = transDecrypt(cipher, cols).msg;
   const ok = back === text;
   document.getElementById('tr-verifyText').innerHTML =
-    (ok ? '✅ ' : '⚠️ ') + `암호문 "<span class="mono">${cipher}</span>" 을(를) 키 ${cols}로 복호화하면 → <span class="mono">${back}</span> ${ok?'( 원문과 일치! )':''}`;
+    (ok ? '✅ ' : '⚠️ ') + `암호문 "<span class="mono">${visibleSpaces(cipher)}</span>" (␣=공백)을 키 ${cols}로 복호화하면 → <span class="mono">${back}</span> ${ok?'( 원문과 일치! )':''}`;
 }
-document.getElementById('tr-run').addEventListener('click', runTransLab);
+document.getElementById('tr-run').addEventListener('click', ()=>{ markActivity('transEnc'); runTransLab(); });
 document.getElementById('tr-randWord').addEventListener('click', ()=>{
+  markActivity('transEnc');
   document.getElementById('tr-text').value = pick(TRANS_WORDS);
   runTransLab();
 });
 document.getElementById('tr-randKey').addEventListener('click', ()=>{
+  markActivity('transEnc');
   document.getElementById('tr-key').value = randInt(2,6);
   runTransLab();
 });
@@ -2105,8 +2215,10 @@ let tr1Map = {};
 function regenTransQuiz1(){
   const {text, cols} = trState.text ? trState : {text:'SECRET MESSAGE', cols:5};
   const {grid} = transEncryptGrid(text, cols);
+  document.getElementById('tr-quiz1-plain').textContent=visibleSpaces(text);
+  document.getElementById('tr-quiz1-key').textContent=cols;
   const filledCells=[];
-  grid.forEach((row,r)=>row.forEach((ch,c)=>{ if(ch!==null) filledCells.push(r+'-'+c); }));
+  grid.forEach((row,r)=>row.forEach((ch,c)=>{ if(ch!==' ') filledCells.push(r+'-'+c); }));
   const blankCount = Math.max(3, Math.round(filledCells.length*0.3));
   const blankSet = new Set(shuffle(filledCells).slice(0,blankCount));
   tr1Map = {};
@@ -2115,14 +2227,6 @@ function regenTransQuiz1(){
     tr1Map['trw-'+r+'-'+c] = grid[r][c]===' ' ? ' ' : grid[r][c];
   });
   renderWriteGrid(document.getElementById('tr-quiz1-grid'), grid, cols, blankSet);
-  // space blanks can't be typed meaningfully; convert those into pre-filled disabled spaces
-  Object.keys(tr1Map).forEach(id=>{
-    if(tr1Map[id]===' '){
-      const el = document.getElementById(id);
-      if(el){ el.value='␣'; el.disabled=true; }
-      delete tr1Map[id];
-    }
-  });
   const fb=document.getElementById('tr-quiz1-feedback'); fb.className='feedback';
 }
 document.getElementById('tr-quiz1-check').addEventListener('click', ()=>{
@@ -2133,24 +2237,24 @@ document.getElementById('tr-quiz1-regen').addEventListener('click', regenTransQu
 
 /* 퀴즈2: 암호문 직접 만들기 */
 document.getElementById('tr-quiz2-check').addEventListener('click', ()=>{
-  const ans = document.getElementById('tr-quiz2-answer').value.toUpperCase().trim();
-  const correct = (trState.cipher||'').trim();
-  const fb = document.getElementById('tr-quiz2-feedback');
-  if(ans.replace(/\s+/g,'') === correct.replace(/\s+/g,'')){
-    fb.textContent = '✅ 정답이에요! 표를 세로로 정확히 읽었어요.';
+  const ans=sanitizeTransCipher(document.getElementById('tr-quiz2-answer').value);
+  const correct=trState.cipher||'';
+  const fb=document.getElementById('tr-quiz2-feedback');
+  if(ans===correct){
+    fb.textContent='✅ 정답이에요! 패딩 공백까지 포함해 표를 세로로 정확히 읽었어요.';
     fb.className='feedback show good';
-  } else {
-    fb.textContent = `❌ 다시 확인해볼까요? 정답은 "${correct}" 입니다.`;
+  }else{
+    fb.textContent='❌ 다시 확인해 보세요. 1열부터 위→아래로 읽고, ␣로 표시된 패딩 공백도 암호문의 한 칸으로 포함해야 합니다.';
     fb.className='feedback show warn';
   }
 });
 
 
 document.getElementById('tr-dec-calc').addEventListener('click', calculateTransDecryptCols);
-document.getElementById('tr-dec-run').addEventListener('click', runTransDecryptLab);
+document.getElementById('tr-dec-run').addEventListener('click', ()=>{ markActivity('transDec'); runTransDecryptLab(); });
 document.getElementById('tr-dec-text').addEventListener('input', calculateTransDecryptCols);
 document.getElementById('tr-dec-shared-key').addEventListener('input', calculateTransDecryptCols);
-document.getElementById('tr-dec-text').addEventListener('keydown', e=>{ if(e.key==='Enter') runTransDecryptLab(); });
+document.getElementById('tr-dec-text').addEventListener('keydown', e=>{ if(e.key==='Enter'){ markActivity('transDec'); runTransDecryptLab(); } });
 
 /* ===================== SECTION 3: 결합 활동 ===================== */
 let cbState = {};
@@ -2190,7 +2294,7 @@ function runComboAll(){
 
   /* Step2 UI: grid blanks built from caesarOut */
   const filledCells=[];
-  grid.forEach((row,r)=>row.forEach((ch,c)=>{ if(ch!==null) filledCells.push(r+'-'+c); }));
+  grid.forEach((row,r)=>row.forEach((ch,c)=>{ if(ch!==' ') filledCells.push(r+'-'+c); }));
   const blankCount = Math.max(2, Math.round(filledCells.length*0.35));
   const blankSet = new Set(shuffle(filledCells).slice(0,blankCount));
   cbState.cb2Map = {};
@@ -2226,9 +2330,9 @@ function renderComboGrid(blankSet){
     row.forEach((ch,c)=>{
       const td=document.createElement('td');
       const key=r+'-'+c;
-      if(ch===null){
+      if(ch===' '){
         td.classList.add('pad');
-        td.textContent='·';
+        td.textContent='␣';
       }else if(blankSet.has(key)){
         const id='cbg-'+r+'-'+c;
         td.innerHTML = `<input class="blank-input" id="${id}" maxlength="1" aria-label="결합 활동 표 빈칸 ${r+1}행 ${c+1}열">`;
@@ -2240,8 +2344,9 @@ function renderComboGrid(blankSet){
     table.appendChild(tr);
   });
 }
-document.getElementById('cb-apply').addEventListener('click', runComboAll);
+document.getElementById('cb-apply').addEventListener('click', ()=>{ markActivity('comboEnc'); runComboAll(); });
 document.getElementById('cb-random').addEventListener('click', ()=>{
+  markActivity('comboEnc');
   document.getElementById('cb-text').value = pick(['CIPHER','SECRET','PYTHON','ROBOT','SCHOOL','PLANET']);
   document.getElementById('cb-key1').value = (Math.random()<.5?-1:1)*randInt(1,10);
   document.getElementById('cb-key2').value = randInt(2,5);
@@ -2259,13 +2364,14 @@ document.getElementById('cb-step2-check').addEventListener('click', ()=>{
   setFeedback(document.getElementById('cb-step2-feedback'), r.right, r.total);
 });
 document.getElementById('cb-output-check').addEventListener('click', ()=>{
-  const ans = document.getElementById('cb-output-answer').value.toUpperCase().trim();
-  const fb = document.getElementById('cb-output-feedback');
-  if(ans === cbState.finalCipher){
-    fb.textContent = '✅ 완성! 시저 암호와 전치형 암호를 순서대로 잘 적용했어요.';
+  markActivity('comboEnc');
+  const ans=sanitizeTransCipher(document.getElementById('cb-output-answer').value);
+  const fb=document.getElementById('cb-output-feedback');
+  if(ans===cbState.finalCipher){
+    fb.textContent='✅ 완성! 시저 암호와 전치형 암호를 순서대로 잘 적용했고 패딩 공백도 정확합니다.';
     fb.className='feedback show good';
-  } else {
-    fb.textContent = `❌ 아직이에요. 정답은 "${cbState.finalCipher}" 입니다.`;
+  }else{
+    fb.textContent='❌ 다시 확인해 보세요. 처리②의 마지막 빈 칸도 공백(␣)으로 채운 뒤 열별로 읽어야 합니다.';
     fb.className='feedback show warn';
   }
 });
@@ -2295,7 +2401,7 @@ function renderComboDecryptGrid(){
         td.textContent='·';
         td.classList.add('pad');
       }else{
-        td.textContent=ch;
+        td.textContent=ch===' '?'␣':ch;
       }
       tr.appendChild(td);
     });
@@ -2307,7 +2413,7 @@ function syncComboDecryptUI(){
   const cipher=document.getElementById('cb-dec-cipher');
   if(!cipher) return;
 
-  cipher.value=cbState.finalCipher||'';
+  cipher.value=visibleSpaces(cbState.finalCipher||'');
   document.getElementById('cb-dec-key2').value=cbState.key2||'';
   document.getElementById('cb-dec-key1').value=cbState.key1||'';
 
@@ -2332,6 +2438,7 @@ document.getElementById('cb-dec-step1-check').addEventListener('click', ()=>{
 });
 
 document.getElementById('cb-dec-final-check').addEventListener('click', ()=>{
+  markActivity('comboDec');
   const ans=letterOnly(document.getElementById('cb-dec-final-answer').value);
   const fb=document.getElementById('cb-dec-final-feedback');
   if(ans===cbState.text){
@@ -2345,6 +2452,41 @@ document.getElementById('cb-dec-final-check').addEventListener('click', ()=>{
 
 
 /* ===================== 실습 인증서 ===================== */
+
+function buildCertificateActivityLog(){
+  const setActivity=(key, cardId, checkId, valueId, text)=>{
+    const done=!!activityDone[key];
+    const card=document.getElementById(cardId), check=document.getElementById(checkId), value=document.getElementById(valueId);
+    if(card) card.classList.toggle('not-done', !done);
+    if(check) check.classList.toggle('done', done);
+    if(value) value.textContent=done ? (text || '활동 완료') : '활동 기록 없음';
+  };
+
+  let t='';
+  if(activityDone.caesarEnc){ const p=sanitize(document.getElementById('cs-text')?.value||''); const r=document.getElementById('cs-key')?.value; const k=r!==''?parseInt(r,10):0; t=`평문 ${p||'-'} · KEY ${k>0?'+':''}${k} · 암호문 ${caesarEncrypt(p,k)||'-'}`; }
+  setActivity('caesarEnc','cert-card-caesar-enc','cert-check-caesar-enc','cert-log-caesar-enc',t);
+
+  t='';
+  if(activityDone.caesarDec){ const c=sanitize(document.getElementById('cs-dec-text')?.value||''); const r=document.getElementById('cs-dec-key')?.value; if(c&&r!==''){ const k=parseInt(r,10); t=`암호문 ${c} · KEY ${k>0?'+':''}${k} · 복원 ${caesarDecrypt(c,k)}`; } else t='복호화 실습 실행'; }
+  setActivity('caesarDec','cert-card-caesar-dec','cert-check-caesar-dec','cert-log-caesar-dec',t);
+
+  t='';
+  if(activityDone.transEnc){ const p=sanitize(document.getElementById('tr-text')?.value||''); const k=parseInt(document.getElementById('tr-key')?.value||'0',10); const c=p&&k?transEncryptGrid(p,k).cipher:''; t=`평문 ${p||'-'} · 비밀키 ${k||'-'} · 암호문 ${c||'-'}`; }
+  setActivity('transEnc','cert-card-trans-enc','cert-check-trans-enc','cert-log-trans-enc',t);
+
+  t='';
+  if(activityDone.transDec){ const c=sanitize(document.getElementById('tr-dec-text')?.value||''); const k=document.getElementById('tr-dec-shared-key')?.value||'-'; const r=(document.getElementById('tr-dec-output')?.textContent||'').trim(); t=`암호문 ${c||'-'} · 비밀키 ${k} · 복원 ${r&&r!=='—'?r:'-'}`; }
+  setActivity('transDec','cert-card-trans-dec','cert-check-trans-dec','cert-log-trans-dec',t);
+
+  t='';
+  if(activityDone.comboEnc && cbState && cbState.text) t=`평문 ${cbState.text} · 시저 KEY ${cbState.key1>0?'+':''}${cbState.key1} · 전치 KEY ${cbState.key2} · 최종 암호문 ${visibleSpaces(cbState.finalCipher)}`;
+  setActivity('comboEnc','cert-card-combo-enc','cert-check-combo-enc','cert-log-combo-enc',t);
+
+  t='';
+  if(activityDone.comboDec){ const c=cbState?.finalCipher||''; const p=letterOnly(document.getElementById('cb-dec-final-answer')?.value||''); t=`최종 암호문 ${c||'-'} · 복원 평문 ${p||'-'}`; }
+  setActivity('comboDec','cert-card-combo-dec','cert-check-combo-dec','cert-log-combo-dec',t);
+}
+
 function formatKoreanDateTime(d){
   const days=['일','월','화','수','목','금','토'];
   const y=d.getFullYear(), mo=d.getMonth()+1, da=d.getDate(), wd=days[d.getDay()];
@@ -2366,6 +2508,7 @@ document.getElementById('cert-generate').addEventListener('click', ()=>{
   document.getElementById('cert-out-sid').textContent = sid;
   document.getElementById('cert-out-name').textContent = name;
   document.getElementById('cert-out-datetime').textContent = formatKoreanDateTime(new Date());
+  buildCertificateActivityLog();
   const certEl = document.getElementById('certificate');
   certEl.style.display = 'block';
   document.getElementById('cert-instruction').style.display = 'block';
