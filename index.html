@@ -1137,13 +1137,13 @@ table.transgrid.quiz-transgrid .blank-input{
         <button class="btn btn-sm" id="tr-copy">복사</button>
       </div>
 
-      <div class="aside" id="tr-verifyBox" style="margin-top:16px;">🔁 복호화 검증: <span id="tr-verifyText">암호문과 키를 그대로 복호화하면 원래 문장으로 되돌아오는지 확인해요.</span></div>
+      <div class="aside" id="tr-verifyBox" style="margin-top:16px;">🔁 복호화 검증: <span id="tr-verifyText">암호문 길이와 비밀키로 가로 칸 수를 계산하고, 암호문을 가로로 채운 뒤 세로로 읽으면 원래 문장으로 되돌아오는지 확인해요.</span></div>
     </div>
 
 
     <div class="card" id="tr-decrypt-lab">
       <h3><span class="dot"></span>🔓 복호화 전용 실습</h3>
-      <p style="color:var(--ink-soft);font-size:.9rem;margin-top:-4px;">암호문의 길이와 비밀키로 표의 크기를 다시 정한 뒤, 암호문을 <b>열별로 채우고 가로 방향으로 읽어</b> 원문을 복원합니다.</p>
+      <p style="color:var(--ink-soft);font-size:.9rem;margin-top:-4px;">교과서의 복호화 과정처럼 <b>암호문 길이 ÷ 비밀키</b>를 올림하여 가로 칸 수를 계산한 뒤, 암호문을 <b>가로 방향으로 채우고 세로 방향으로 읽어</b> 원문을 복원합니다.</p>
       <div class="controls">
         <div class="field">
           <label for="tr-dec-text">암호문 입력 (영문+공백)</label>
@@ -1151,23 +1151,23 @@ table.transgrid.quiz-transgrid .blank-input{
           <p class="field-guide" id="tr-dec-text-guide">영문 A–Z와 공백을 사용할 수 있어요. 복사한 암호문의 마지막 패딩 공백도 그대로 유지됩니다.</p>
         </div>
         <div class="field">
-          <label for="tr-dec-shared-key">공유한 비밀키 (열 수)</label>
-          <input type="number" id="tr-dec-shared-key" value="5" min="2" max="9" aria-label="전치형 복호화 공유 비밀키 입력">
+          <label for="tr-dec-shared-key">공유한 비밀키</label>
+          <input type="number" id="tr-dec-shared-key" value="5" min="2" max="9" aria-label="전치형 복호화 비밀키 입력">
         </div>
-        <button class="btn" id="tr-dec-calc" aria-label="암호문 길이와 비밀키로 표의 칸 수 계산">행 수 계산</button>
+        <button class="btn" id="tr-dec-calc" aria-label="암호문 길이와 비밀키로 표의 칸 수 계산">가로 칸 수 계산</button>
         <div class="field">
-          <label for="tr-dec-key">계산된 행 수</label>
-          <input type="number" id="tr-dec-key" value="3" min="1" max="24" aria-label="계산된 전치형 복호화 표의 칸 수" readonly>
+          <label for="tr-dec-key">계산된 가로 칸 수</label>
+          <input type="number" id="tr-dec-key" value="3" min="1" max="24" aria-label="계산된 전치형 복호화 가로 칸 수" readonly>
         </div>
         <button class="btn btn-primary" id="tr-dec-run" aria-label="전치형 암호문 복호화 실행">복호화하기</button>
       </div>
       <div class="aside" id="tr-dec-calcbox" style="margin-top:10px;">
-        📐 <b>복호화 표 계산:</b> 패딩 공백까지 포함한 <b>암호문 길이 ÷ 공유 비밀키(열 수)</b>를 계산하여 <b>행 수</b>를 구합니다.
-        <div id="tr-dec-calcresult" class="mono" style="margin-top:6px;font-weight:700;color:var(--teal-deep);">예: 암호문 18글자 ÷ 비밀키 6열 = 3행</div>
+        📐 <b>복호화 표 계산:</b> 패딩 공백까지 포함한 <b>암호문 길이 ÷ 비밀키</b>를 계산하고, 소수점이 나오면 올림하여 <b>가로 칸 수</b>를 구합니다.
+        <div id="tr-dec-calcresult" class="mono" style="margin-top:6px;font-weight:700;color:var(--teal-deep);">예: 암호문 14글자 ÷ 비밀키 5 = 2.8 → 올림 → 가로 3칸</div>
       </div>
-      <p class="readnote">① 암호문을 1열부터 차례대로 <b>세로 방향</b>으로 채워 원래 표를 복원합니다.</p>
+      <p class="readnote">① 계산한 가로 칸 수에 맞춰 암호문을 <b>왼쪽→오른쪽, 가로 방향</b>으로 채웁니다.</p>
       <div class="grid-scroll"><table class="transgrid" id="tr-dec-grid"></table></div>
-      <p class="readnote">② 복원된 표를 가로 방향으로 읽고, 마지막 패딩 공백은 제거하기</p>
+      <p class="readnote">② 표를 <b>1열→2열→3열… 순서로 세로 방향</b>으로 읽어 평문을 복원하고, 마지막 패딩 공백은 제거합니다.</p>
       <div class="output-box">
         <div><span class="lbl">복원된 평문</span><span class="val mono" id="tr-dec-output">—</span></div>
       </div>
@@ -1338,9 +1338,12 @@ table.transgrid.quiz-transgrid .blank-input{
         <div class="pipe-box">
           <span class="pipe-tag">복호화 ① · 전치형 암호 되돌리기</span>
           <p class="readnote">
-            최종 암호문을 비밀키②를 기준으로 다시 표에 배치하고, 가로 방향으로 읽으면
+            최종 암호문의 길이를 비밀키②로 나누어 <b>가로 칸 수</b>를 계산한 뒤, 암호문을 <b>가로 방향으로 채우고 세로 방향으로 읽으면</b>
             <b>시저 암호화 결과 문자열</b>이 복원됩니다.
           </p>
+          <div class="aside" id="cb-dec-trans-calc" style="margin:10px 0;">
+            📐 <b>표 계산:</b> <span id="cb-dec-trans-calc-text">암호문 길이 ÷ 비밀키②로 가로 칸 수를 계산합니다.</span>
+          </div>
           <div class="grid-scroll"><table class="transgrid" id="cb-dec-grid" aria-label="결합 활동 전치형 복호화 표"></table></div>
 
           <div class="field" style="max-width:380px;margin-top:14px;">
@@ -1351,7 +1354,7 @@ table.transgrid.quiz-transgrid .blank-input{
             <button class="btn btn-primary btn-sm" id="cb-dec-step1-check">채점하기</button>
             <button class="btn btn-sm hint-btn" data-hint="cb-dec-step1-hint" aria-controls="cb-dec-step1-hint" aria-expanded="false">💡 힌트 보기</button>
           </div>
-          <div class="hint-box" id="cb-dec-step1-hint">💡 전치형 암호화 때는 가로로 채우고 세로로 읽었습니다. 복호화에서는 암호문을 열의 길이에 맞게 다시 채운 뒤 가로로 읽어 중간 문자열을 복원해 보세요.</div>
+          <div class="hint-box" id="cb-dec-step1-hint">💡 암호문 길이 ÷ 비밀키②를 올림해 가로 칸 수를 구하세요. 그 칸 수에 맞춰 암호문을 가로로 채운 뒤, 1열부터 세로로 읽으면 중간 문자열을 복원할 수 있습니다.</div>
           <div class="feedback" id="cb-dec-step1-feedback" role="status" aria-live="polite"></div>
         </div>
 
@@ -1512,26 +1515,36 @@ function transEncryptGrid(msg, cols){
   }
   return {grid, cipher, rows, cols};
 }
-function transDecrypt(cipher, cols){
+function transDecrypt(cipher, key){
   const clean=sanitizeTransCipher(cipher);
   const n=clean.length;
-  if(!n || !cols) return {grid:[], msg:'', rows:0, cols};
-  const rows=Math.ceil(n/cols);
-  const total=rows*cols;
-  const padded=clean.padEnd(total,' ');
-  const grid=Array.from({length:rows},()=>Array(cols).fill(' '));
-  let ci=0;
-  // 암호화 때 세로로 읽었으므로 복호화 때는 열별로 다시 채운다.
-  for(let c=0;c<cols;c++){
-    for(let r=0;r<rows;r++) grid[r][c]=padded[ci++];
-  }
-  let msg='';
+  if(!n || !key) return {grid:[], msg:'', rows:0, cols:0, key};
+
+  // 교과서 방식:
+  // ① 암호문 길이 ÷ 비밀키를 올림하여 가로 칸 수를 계산한다.
+  // ② 비밀키만큼의 행에 암호문을 가로 방향으로 채운다.
+  // ③ 완성된 표를 세로 방향으로 읽어 평문을 복원한다.
+  const rows=key;
+  const cols=Math.ceil(n/key);
+  const grid=Array.from({length:rows},()=>Array(cols).fill(null));
+
+  let idx=0;
   for(let r=0;r<rows;r++){
-    for(let c=0;c<cols;c++) msg+=grid[r][c];
+    for(let c=0;c<cols;c++){
+      if(idx<n) grid[r][c]=clean[idx++];
+    }
   }
-  // 암호화 때 추가한 마지막 패딩 공백만 제거한다.
+
+  let msg='';
+  for(let c=0;c<cols;c++){
+    for(let r=0;r<rows;r++){
+      if(grid[r][c]!==null) msg+=grid[r][c];
+    }
+  }
+
+  // 암호화 단계에서 추가했던 마지막 패딩 공백만 제거한다.
   msg=msg.replace(/ +$/,'');
-  return {grid, msg, rows, cols};
+  return {grid, msg, rows, cols, key};
 }
 
 function gradeBlanks(map){
@@ -1692,38 +1705,38 @@ function runCaesarDecryptLab(){
 }
 function calculateTransDecryptCols(){
   const cipher=sanitizeTransCipher(document.getElementById('tr-dec-text').value);
-  let shared=parseInt(document.getElementById('tr-dec-shared-key').value,10);
-  if(isNaN(shared)||shared<2) shared=2;
-  if(shared>9) shared=9;
-  document.getElementById('tr-dec-shared-key').value=shared;
+  let key=parseInt(document.getElementById('tr-dec-shared-key').value,10);
+  if(isNaN(key)||key<2) key=2;
+  if(key>9) key=9;
+  document.getElementById('tr-dec-shared-key').value=key;
 
   const n=cipher.length;
-  const rows=n>0 ? Math.ceil(n/shared) : 1;
-  document.getElementById('tr-dec-key').value=rows;
+  const cols=n>0 ? Math.ceil(n/key) : 1;
+  document.getElementById('tr-dec-key').value=cols;
 
   const result=document.getElementById('tr-dec-calcresult');
   if(result){
     if(!n){
       result.textContent='암호문을 입력하면 계산 결과가 표시됩니다.';
-    }else if(n%shared===0){
-      result.textContent=`${n}글자 ÷ ${shared}열 = ${rows}행`;
     }else{
-      result.textContent=`${n}글자 ÷ ${shared}열 → 나누어떨어지지 않습니다. 암호문 끝의 패딩 공백이 빠졌는지 확인하세요.`;
+      const raw=n/key;
+      const rawText=Number.isInteger(raw) ? raw.toString() : raw.toFixed(2).replace(/0+$/,'').replace(/\.$/,'');
+      result.textContent=`${n}글자 ÷ 비밀키 ${key} = ${rawText} → ${Number.isInteger(raw)?'그대로':'올림'} → 가로 ${cols}칸`;
     }
   }
-  return {cipher, shared, rows};
+  return {cipher, key, cols};
 }
 
 function runTransDecryptLab(){
-  const {cipher, shared}=calculateTransDecryptCols();
+  const {cipher, key, cols}=calculateTransDecryptCols();
   document.getElementById('tr-dec-text').value=cipher;
   if(!cipher){
     document.getElementById('tr-dec-grid').innerHTML='';
     document.getElementById('tr-dec-output').textContent='—';
     return;
   }
-  const result=transDecrypt(cipher,shared);
-  renderDecryptGrid(document.getElementById('tr-dec-grid'), result.grid, shared);
+  const result=transDecrypt(cipher,key);
+  renderDecryptGrid(document.getElementById('tr-dec-grid'), result.grid, cols);
   document.getElementById('tr-dec-output').textContent=result.msg||'—';
 }
 function showTeacherToast(message){
@@ -2382,7 +2395,7 @@ function renderComboDecryptGrid(){
 
   const result=transDecrypt(cbState.finalCipher, cbState.key2);
   const grid=result.grid;
-  const cols=cbState.key2;
+  const cols=result.cols;
 
   table.innerHTML='';
   const head=document.createElement('tr');
@@ -2417,6 +2430,15 @@ function syncComboDecryptUI(){
   document.getElementById('cb-dec-key2').value=cbState.key2||'';
   document.getElementById('cb-dec-key1').value=cbState.key1||'';
 
+  const calc=document.getElementById('cb-dec-trans-calc-text');
+  if(calc && cbState.finalCipher){
+    const n=cbState.finalCipher.length;
+    const cols=Math.ceil(n/cbState.key2);
+    const raw=n/cbState.key2;
+    const rawText=Number.isInteger(raw)?raw.toString():raw.toFixed(2).replace(/0+$/,'').replace(/\.$/,'');
+    calc.textContent=`${n}글자 ÷ 비밀키② ${cbState.key2} = ${rawText} → ${Number.isInteger(raw)?'그대로':'올림'} → 가로 ${cols}칸`;
+  }
+
   document.getElementById('cb-dec-step1-answer').value='';
   document.getElementById('cb-dec-final-answer').value='';
   document.getElementById('cb-dec-step1-feedback').className='feedback';
@@ -2432,7 +2454,7 @@ document.getElementById('cb-dec-step1-check').addEventListener('click', ()=>{
     fb.textContent='✅ 정답이에요! 전치형 암호화가 정확히 되돌아갔어요.';
     fb.className='feedback show good';
   }else{
-    fb.textContent='❌ 표를 다시 확인해 보세요. 열을 복원한 뒤 가로 방향으로 읽는 순서를 점검해 보세요.';
+    fb.textContent='❌ 표를 다시 확인해 보세요. 암호문을 가로 방향으로 채운 뒤 1열부터 세로 방향으로 읽었는지 점검해 보세요.';
     fb.className='feedback show warn';
   }
 });
